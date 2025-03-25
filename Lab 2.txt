@@ -1,0 +1,33 @@
+// This program calculates and displays a personal budget based on the given percentages.
+
+public class BudgetCalculator {
+    public static void main(String[] args) {
+        // Define constants (fixed values)
+        final double SALARY = 3000.0;
+        final double SAVINGS_PERCENT = 0.20; // 20% savings
+        final double RENT_PERCENT = 0.30; // 30% rent
+        final double GROCERIES_PERCENT = 0.15; // 15% groceries
+        final double ENTERTAINMENT_PERCENT = 0.10; // 10% entertainment
+
+        // Declare variables
+        double monthlySalary = SALARY;
+        double savedAmount = monthlySalary * SAVINGS_PERCENT;
+        double rentAmount = monthlySalary * RENT_PERCENT;
+        double groceriesAmount = monthlySalary * GROCERIES_PERCENT;
+        double entertainmentAmount = monthlySalary * ENTERTAINMENT_PERCENT;
+
+        // Calculate total expenses and remaining balance
+        double totalExpenses = rentAmount + groceriesAmount + entertainmentAmount;
+        double remainingBalance = monthlySalary - totalExpenses;
+
+        // Display results
+        System.out.println("=== Budget Summary ===");
+        System.out.println("Monthly Salary: $" + monthlySalary);
+        System.out.println("Amount of Money Saved: $" + savedAmount);
+        System.out.println("Amount of Money Spent on Rent: $" + rentAmount);
+        System.out.println("Amount of Money Spent on Groceries: $" + groceriesAmount);
+        System.out.println("Amount of Money Spent on Entertainment: $" + entertainmentAmount);
+        System.out.println("Total Expenses: $" + totalExpenses);
+        System.out.println("Remaining Balance: $" + remainingBalance);
+    }
+}
