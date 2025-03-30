@@ -1,0 +1,42 @@
+// Author.java
+class Author {
+    String name;
+    String email;
+    String nationality;
+
+    Author(String name, String email, String nationality) {
+        this.name = name;
+        this.email = email;
+        this.nationality = nationality;
+    }
+
+    public String toString() {
+        return "Author: " + name + ", Email: " + email + ", Nationality: " + nationality;
+    }
+}
+
+// Book.java
+class Book {
+    String title;
+    double price;
+    Author author;
+
+    Book(String title, double price, Author author) {
+        this.title = title;
+        this.price = price;
+        this.author = author;
+    }
+
+    public String toString() {
+        return "Book: " + title + ", Price: $" + price + "\n" + author;
+    }
+}
+
+// Main.java
+public class Main {
+    public static void main(String[] args) {
+        Author author = new Author("J.K. Rowling", "jk.rowling@example.com", "British");
+        Book book = new Book("Harry Potter and the Philosopher's Stone", 19.99, author);
+        System.out.println(book);
+    }
+}
