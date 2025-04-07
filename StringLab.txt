@@ -1,0 +1,241 @@
+public class StringLab {
+
+  public static void main(String[] args) {
+
+    // Task 1: String Methods
+
+    String str = " Welcome to the Java String Lab! ";
+
+
+
+    // length()
+
+    System.out.println("Length of the string: " + str.length());
+
+
+
+    // charAt()
+
+    System.out.println("Character at index 7: " + str.charAt(7));
+
+
+
+    // substring()
+
+    System.out.println("Extracted substring 'Java': " + str.substring(18, 22));
+
+
+
+    // toUpperCase() and toLowerCase()
+
+    System.out.println("Uppercase version: " + str.toUpperCase());
+
+    System.out.println("Lowercase version: " + str.toLowerCase());
+
+
+
+    // indexOf()
+
+    System.out.println("Index of first occurrence of 'Java': " + str.indexOf("Java"));
+
+
+
+    // contains()
+
+    System.out.println("Contains 'Lab': " + str.contains("Lab"));
+
+
+
+    // replace()
+
+    System.out.println("Replacing 'Java' with 'Java Programming': " + str.replace("Java", "Java Programming"));
+
+
+
+    // split()
+
+    String[] words = str.trim().split(" ");
+
+    System.out.println("Words in the string:");
+
+    for (String word : words) {
+
+      System.out.println(word);
+
+    }
+
+
+
+    // trim()
+
+    System.out.println("Trimmed string: '" + str.trim() + "'");
+
+
+
+    // equals() and equalsIgnoreCase()
+
+    String str2 = "java string lab!";
+
+    System.out.println("Equals (case-sensitive): " + str.equals(str2));
+
+    System.out.println("Equals (ignore case): " + str.equalsIgnoreCase(str2));
+
+  }
+
+}
+
+
+
+import java.util.Scanner;
+
+
+
+public class StringLab {
+
+  public static void main(String[] args) {
+
+    // Task 1 code
+
+
+
+    // Task 2: Loop Challenges with Strings
+
+
+
+    //  For Loop: Count Vowels
+
+    String originalString = " Welcome to the Java String Lab! ";
+
+    int vowelCount = 0;
+
+    for (int i = 0; i < originalString.length(); i++) {
+
+      char ch = originalString.charAt(i);
+
+      if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || 
+
+        ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U') {
+
+        vowelCount++;
+
+      }
+
+    }
+
+    System.out.println("Number of vowels: " + vowelCount);
+
+
+
+    //  While Loop: Check for Palindrome
+
+    String word = "racecar";
+
+    int start = 0, end = word.length() - 1;
+
+    boolean isPalindrome = true;
+
+    while (start < end) {
+
+      if (word.charAt(start) != word.charAt(end)) {
+
+        isPalindrome = false;
+
+        break;
+
+      }
+
+      start++;
+
+      end--;
+
+    }
+
+    if (isPalindrome) {
+
+      System.out.println(word + " is a palindrome.");
+
+    } else {
+
+      System.out.println(word + " is not a palindrome.");
+
+    }
+
+
+
+    //  Do...While Loop: Input Validation
+
+    Scanner scanner = new Scanner(System.in);
+
+    String userInput;
+
+    do {
+
+      System.out.println("Please enter a sentence:");
+
+      userInput = scanner.nextLine();
+
+    } while (!userInput.contains("Java"));
+
+    System.out.println("Thank you!");
+
+    scanner.close();
+
+  }
+
+}
+
+
+
+public class StringLab {
+
+  public static void main(String[] args) {
+
+    // Task 1 code ...
+
+    // Task 3 code ...
+
+
+
+    // Task 4: Working with StringBuffer
+
+    StringBuffer sbf = new StringBuffer("Multithreading Lab");
+
+
+
+    // append()
+
+    sbf.append(" - Learning Java");
+
+    System.out.println("After append: " + sbf);
+
+
+
+    // insert()
+
+    sbf.insert(sbf.indexOf("Lab") + 3, " is fun");
+
+    System.out.println("After insert: " + sbf);
+
+
+
+    // delete()
+
+    int startSbf = sbf.indexOf("Learning");
+
+    int endSbf = startSbf + "Learning".length();
+
+    sbf.delete(startSbf, endSbf);
+
+    System.out.println("After delete: " + sbf);
+
+
+
+    // reverse()
+
+    sbf.reverse();
+
+    System.out.println("After reverse: " + sbf);
+
+  }
+
+}
