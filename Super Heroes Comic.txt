@@ -1,0 +1,137 @@
+main Affiliation {
+    AVENGERS,
+    JUSTICE_LEAGUE,
+    X_MEN,
+    FANTASTIC_FOUR
+}
+
+class Hero {
+    private String name;
+    private int powerLevel;
+    private Affiliation affiliation;
+
+    public Hero(String name, int powerLevel, Affiliation affiliation) {
+        this.name = name;
+        this.powerLevel = powerLevel;
+        this.affiliation = affiliation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPowerLevel() {
+        return powerLevel;
+    }
+
+    public Affiliation getAffiliation() {
+        return affiliation;
+    }
+
+    public String toString() {
+        return name + " (Power: " + powerLevel + ", Team: " + affiliation + ")";
+    }
+}
+
+class HeroManager {
+    private ArrayList<Hero> heroes = new ArrayList<>();
+
+    public void addHero(Hero hero) {
+        heroes.add(hero);
+    }
+
+    public void removeHero(String name) {
+        boolean removed = false;
+        for (int i = 0; i < heroes.size(); i++) {
+            if (heroes.get(i).getName().equalsIgnoreCase(name)) {
+                heroes.remove(i);
+                removed = true;
+                System.out.println(name + " was removed.");
+                break;
+            }
+        }
+        if (!removed) {
+            System.out.println(name + " was not found.");
+        }
+    }
+
+    public void displayHeroes() {
+        System.out.println("Hero List:");
+        for (Hero h : heroes) {
+            System.out.println(h);
+        }
+    }
+
+    public void sortHeroesBubble() {
+        for (int i = 0; i < heroes.size() - 1; i++) {
+            for (int j = 0; j < heroes.size() - 1 - i; j++) {
+                if (heroes.get(j).getPowerLevel() > heroes.get(j + 1).getPowerLevel()) {
+                    Hero temp = heroes.get(j);
+                    heroes.set(j, heroes.get(j + 1));
+                    heroes.set(j + 1, temp);
+                }
+            }
+        }
+        System.out.println("Heroes sorted using Bubble Sort.");
+    }
+
+    public void sortHeroesInsertion() {
+        for (int i = 1; i < heroes.size(); i++) {
+            Hero key = heroes.get(i);
+            int j = i - 1;
+            while (j >= 0 && heroes.get(j).getPowerLevel() > key.getPowerLevel()) {
+                heroes.set(j + 1, heroes.get(j));
+                j--;
+            }
+            heroes.set(j + 1, key);
+        }
+        System.out.println("Heroes sorted using Insertion Sort.");
+    }
+
+    public void displayAs2DArray() {
+        String[][] array = new String[heroes.size()][3];
+        for (int i = 0; i < heroes.size(); i++) {
+            array[i][0] = heroes.get(i).getName();
+            array[i][1] = Integer.toString(heroes.get(i).getPowerLevel());
+            array[i][2] = heroes.get(i).getAffiliation().toString();
+        }
+
+        System.out.println("Heroes in 2D Array Format:");
+        System.out.println(Arrays.deepToString(array));
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        HeroManager manager = new HeroManager();
+
+        // Add heroes
+        manager.addHero(new Hero("Spider-Man", 85, Affiliation.AVENGERS));
+        manager.addHero(new Hero("Batman", 80, Affiliation.JUSTICE_LEAGUE));
+        manager.addHero(new Hero("Wolverine", 90, Affiliation.X_MEN));
+        manager.addHero(new Hero("Mr. Fantastic", 70, Affiliation.FANTASTIC_FOUR));
+
+        // Display original list
+        manager.displayHeroes();
+
+        // Sort using Bubble Sort
+        manager.sortHeroesBubble();
+        manager.displayHeroes();
+
+        // Sort using Insertion Sort
+        manager.sortHeroesInsertion();
+        manager.displayHeroes();
+
+        // Remove a hero
+        manager.removeHero("Batman");
+
+        // Add a new hero
+        manager.addHero(new Hero("Wonder Woman", 95, Affiliation.JUSTICE_LEAGUE));
+
+        // Final display
+        manager.displayHeroes();
+
+        // Display in 2D array format
+        manager.displayAs2DArray();
+    }
+}
