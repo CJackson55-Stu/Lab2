@@ -1,0 +1,136 @@
+//Caleb Jackson CS101 Project 5 Vehicles
+// Vehicle Base Class
+class Vehicle {
+    protected int speed;
+    private double fuel;
+
+    // Constructor
+    public Vehicle(int speed, double fuel) {
+        this.speed = speed;
+        this.fuel = fuel;
+    }
+
+    // Method to start the vehicle
+    public void start() {
+        System.out.println("The vehicle has started.");
+    }
+
+    // Method to stop the vehicle
+    public void stop() {
+        System.out.println("The vehicle has stopped.");
+    }
+
+    // Final method to display fuel
+    public final void displayFuel() {
+        System.out.println("Fuel level: " + fuel + " gallons");
+    }
+
+    // Getter for speed
+    public int getSpeed() {
+        return speed;
+    }
+
+    // Setter for speed
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    // Getter for fuel
+    public double getFuel() {
+        return fuel;
+    }
+
+    // Setter for fuel
+    public void setFuel(double fuel) {
+        this.fuel = fuel;
+    }
+}
+
+// Car Subclass
+class Car extends Vehicle {
+    private int numberOfDoors;
+
+    // Constructor
+    public Car(int speed, double fuel, int numberOfDoors) {
+        super(speed, fuel);
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    // Override start method
+    @Override
+    public void start() {
+        System.out.println("The car has started. Vroom vroom!");
+    }
+
+    // Honk method
+    public void honk() {
+        System.out.println("Beep Beep!");
+    }
+
+    // Getter for numberOfDoors
+    public int getNumberOfDoors() {
+        return numberOfDoors;
+    }
+
+    // Setter for numberOfDoors
+    public void setNumberOfDoors(int numberOfDoors) {
+        this.numberOfDoors = numberOfDoors;
+    }
+}
+
+// Bicycle Subclass
+class Bicycle extends Vehicle {
+    private boolean hasBell;
+
+    // Constructor
+    public Bicycle(int speed, double fuel, boolean hasBell) {
+        super(speed, fuel);
+        this.hasBell = hasBell;
+    }
+
+    // Override start method
+    @Override
+    public void start() {
+        System.out.println("The bicycle has started. Pedal away!");
+    }
+
+    // Method to ring bell
+    public void ringBell() {
+        if (hasBell) {
+            System.out.println("Ring Ring!");
+        } else {
+            System.out.println("This bicycle has no bell.");
+        }
+    }
+
+    // Getter for hasBell
+    public boolean getHasBell() {
+        return hasBell;
+    }
+
+    // Setter for hasBell
+    public void setHasBell(boolean hasBell) {
+        this.hasBell = hasBell;
+    }
+}
+
+// Main Class
+public class Main {
+    public static void main(String[] args) {
+        // Create a Car object
+        Car myCar = new Car(120, 40.5, 4);
+        myCar.start();
+        myCar.displayFuel();
+        myCar.honk();
+        System.out.println("My car has " + myCar.getNumberOfDoors() + " doors.");
+        myCar.stop();
+        System.out.println();
+
+        // Create a Bicycle object
+        Bicycle myBike = new Bicycle(20, 0, true);
+        myBike.start();
+        myBike.displayFuel();
+        myBike.ringBell();
+        myBike.stop();
+    }
+}
