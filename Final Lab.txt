@@ -1,0 +1,145 @@
+import java.util.*;
+import java.io.*;
+
+public class FitnessTracker {
+
+    private static final ArrayList<String> plannedWorkouts = new ArrayList<>();
+    private static final String[] completedWorkouts = new String[10];
+    private static int completedCount = 0;
+
+    public static void main(String[] args) {
+        loadFromFiles();
+        runMenu();
+        saveToFiles();
+        System.out.println("Data saved. Goodbye!");
+    }
+
+    // 
+    private static int getValidInt(String prompt) {
+        System.out.print(prompt);
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return getValidInt(prompt); // Recursive call
+        }
+    }
+
+    // Loop of the main menu
+    private static void runMenu() {
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("\n--- Fitness Progress Tracker ---");
+            System.out.println("1. Add workout");
+            System.out.println("2. Complete a workout");
+            System.out.println("3. View workouts");
+            System.out.println("4. View completed workouts");
+            System.out.println("5. Save and exit");
+
+            int choice = getValidInt("Choose an option: ");
+
+            switch (choice) {
+                case 1 -> addPlannedWorkout();
+                case 2 -> completeWorkout();
+                case 3 -> viewPlannedWorkouts();
+                case 4 -> viewCompletedWorkouts();
+                case 5 -> exit = true;
+                default -> System.out.println("Invalid option. Try again.");
+            }
+        }
+    }
+
+    private static void addPlannedWorkout() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the name of the workout: ");
+        String workout = scanner.nextLine().trim();
+        if (!workout.isEmpty()) {
+            plannedWorkouts.add(workout);
+            System.out.println("Workout added.");
+        } else {
+            System.out.println("Workout name cannot be empty.");
+        }
+    }
+
+    private static void completeWorkout() {
+        if (plannedWorkouts.isEmpty()) {
+            System.out.println("No workouts to complete.");
+            return;
+        }
+
+        viewPlannedWorkouts();
+        int index = getValidInt("Enter the number of the workout to mark as complete: ") - 1;
+
+        if (index >= 0 && index < plannedWorkouts.size()) {
+            if (completedCount < completedWorkouts.length) {
+                completedWorkouts[completedCount++] = plannedWorkouts.remove(index);
+                System.out.println("Workout marked as complete.");
+            } else {
+                System.out.println("Completed workout list is full.");
+            }
+        } else {
+            System.out.println("Invalid workout number.");
+        }
+    }
+
+    private static void viewPlannedWorkouts() {
+        if (plannedWorkouts.isEmpty()) {
+            System.out.println("No workouts.");
+        } else {
+            System.out.println("\nPlanned Workouts:");
+            for (int i = 0; i < plannedWorkouts.size(); i++) {
+                System.out.println((i + 1) + ". " + plannedWorkouts.get(i));
+            }
+        }
+    }
+
+    private static void viewCompletedWorkouts() {
+        if (completedCount == 0) {
+            System.out.println("No completed workouts.");
+        } else {
+            System.out.println("\nCompleted Workouts:");
+            for (int i = 0; i < completedCount; i++) {
+                System.out.println((i + 1) + ". " + completedWorkouts[i]);
+            }
+        }
+    }
+
+    private static void saveToFiles() {
+        try (PrintWriter pw1 = new PrintWriter("planned.txt");
+             PrintWriter pw2 = new PrintWriter("completed.txt")) {
+
+            for (String workout : plannedWorkouts) {
+                pw1.println(workout);
+            }
+
+            for (int i = 0; i < completedCount; i++) {
+                pw2.println(completedWorkouts[i]);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        }
+    }
+
+    private static void loadFromFiles() {
+        try (Scanner sc1 = new Scanner(new File("planned.txt"))) {
+            while (sc1.hasNextLine()) {
+                plannedWorkouts.add(sc1.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No planned workouts found to load.");
+        }
+
+        try (Scanner sc2 = new Scanner(new File("completed.txt"))) {
+            while (sc2.hasNextLine() && completedCount < completedWorkouts.length) {
+                completedWorkouts[completedCount++] = sc2.nextLine();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("No completed workouts found to load.");
+        }
+    }
+}
